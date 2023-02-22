@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>M & S REC</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+</head>
+<script>
+function myFunction() {
+var text1= $('#text1').val();
+  $.ajax({
+              url: "/join",
+              type: "POST",
+              data: {text1:text1}
+          }).done(function(response) {
+          	$("#myTable").html(''); //clear the table
+          	console.log(response)
+          	json =response;
+          	console.log(json)
+            var tr;
+            var row = "<tr><th>POSTER</th> <th>TITLE</th><th>TYPE</th><th>IMDB</th><th>RATED</th><th>GENRE</th><th>LANGUAGES</th><th>YEAR</th></tr>"
+            $('#myTable').append(row);
+	        for (var i = 0; i < json.length; i++) {
+	        	console.log("here"+json[i])
+            var poster = json[i].POSTER
+            if(!poster || poster === 'Unavailable'){
+              console.log("No Poster"+json[i])
+              poster ='/static/csaff-no-poster.jpeg'
+            }
+            var row = $('<tr><td><img src="'+poster+'" width="100" height="100"></td><td>' + json[i].TITLE+ '</td><td>' + json[i].TYPE + '</td><td>' + json[i].IMDB_SCORE + '</td><td>' + json[i].RATED + '</td><td>' + json[i].GENRE + '</td><td>' + json[i].LANGUAGES + '</td><td>'+json[i].YEAR+'</td></tr>')
+          	$('#myTable').append(row);
+	        }
+            });
+};
+  </script>
+<body style="background-color:black;">
+	<img src ="/static/logo.png" class="img img2" width="150" height="100">
+    <p class="center" style="color: whitesmoke">
+       <!-- Recommendation --><br><br>
+            <!-- Movie Name -->
+            <input type="text" id="text1" name="text1" placeholder="Movie/Series Title"><br><br>
+            <button id="clicked" onclick="myFunction()">Submit</button>
+        </p>
+        <table id="myTable" style="background-color:black;">
+		</table>
+    <div class="table" >
+    </div>
+
+</body>
+<style>
+input[type=text], select {
+top: 50%;
+  	left: 50%;
+  	transform: translate(50%, 50%);
+  	-ms-transform: translate(-50%, -50%);
+  width: 50%;
+  padding: 12px 20px;
+  margin: 70px 0;
+/*  display: inline-block;*/
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.img2 {
+  display: inline-block;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+button {
+	position: absolute;
+  	top: 35%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+  	-ms-transform: translate(-50%, -50%);
+  /*background-color: #f1f1f1;*/
+  	color: black;
+  	font-size: 16px;
+  	padding: 16px 30px;
+  	border: none;
+  	cursor: pointer;
+  	border-radius: 5px;
+  	text-align: center;
+	background-color: #f44336;
+/*	border-radius: 12px;*/
+	padding: 14px 40px;
+} /* Blue */
+table {
+	font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	position: absolute;
+  	top: 45%;
+  	left: 24%;
+    width: 50%;
+}
+th {
+	font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #f1f1f1;
+    font-weight: bold;
+    padding: 6px;
+    color: whitesmoke
+}
+td {
+	font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #f9f9f9;
+    padding: 6px;
+    color: whitesmoke
+}
+tr:nth-child(even) {
+	font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #303030;
+}
+
+th:nth-child(even),td:nth-child(even) {
+  background-color: #303030;
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+tr:nth-child(odd) {
+  background-color: #303030;
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+th:nth-child(odd),td:nth-child(odd) {
+  background-color: #303030;
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.p2 {
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+</style>
+</html>`
